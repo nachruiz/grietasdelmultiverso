@@ -441,7 +441,8 @@ footer a:hover { color: var(--senal); }
 .marco {
   width: min(880px, 100%);
   margin: 0 auto;
-  height: clamp(460px, 62vh, 720px);
+  height: clamp(700px, 70vh, 820px);
+  min-height: 700px;
   border: 1px solid rgba(111, 227, 255, 0.22);
   border-radius: 14px;
   overflow: hidden;
