@@ -11,7 +11,7 @@
 (() => {
   "use strict";
 
-  const HUELLA = "94d561472d1e8caba7ab2b6970f01434af233de20a24457e82f81368f78e8c4a";
+  const HUELLA = "0ffe1abd1a08215353c233d6e009613e95eec4253832a761af28ff37ac5a150c";
   const LLAVE = "gdm_archivo_abierto";
 
   const cierre  = document.getElementById("cierre");
@@ -49,19 +49,34 @@
     }
   }
 
+
+  /* Diagnóstico: abre la página con ?diagnostico y escribe la clave.
+     Dirá en pantalla qué está pasando realmente. */
+  const DIAG = location.search.includes("diagnostico");
+  function contar(v, h) {
+    if (!DIAG) return;
+    error.textContent = `[diag] escrito="${campo.value}" · dígitos="${v}" · ` +
+      `hash=${h.slice(0, 12)}… · esperado=${HUELLA.slice(0, 12)}… · ` +
+      `coincide=${h === HUELLA} · subtle=${!!(window.crypto && crypto.subtle)}`;
+    error.hidden = false;
+  }
+
   async function intentar() {
-    const v = campo.value.trim().toLowerCase();
+    // solo los dígitos: da igual que escriban 1.111, 1 111 o 1111
+    const v = campo.value.replace(/\D/g, "");
     if (!v) return;
     if (!crypto?.subtle) {                       // http:// sin TLS, p. ej. file://
       error.textContent = "Esta página necesita servirse por https para comprobar la clave.";
       error.hidden = false;
       return;
     }
-    if (await huella(v) === HUELLA) {
+    const h = await huella(v);
+    contar(v, h);
+    if (h === HUELLA) {
       recordar();
       abrir(true);
     } else {
-      error.textContent = "Esa no es la señal.";
+      error.textContent = "Ese no es el año.";
       error.hidden = false;
       campo.value = "";
       cierre.animate(

@@ -8,7 +8,7 @@
 <meta property="og:title" content="Grietas del Multiverso">
 <meta property="og:description" content="Cada decisión crea un mundo. Aquí se rompen todos.">
 <meta property="og:type" content="book">
-<link rel="stylesheet" href="assets/estilos.css">
+<link rel="stylesheet" href="assets/estilos.css?v=3">
 </head>
 <body>
 
@@ -18,6 +18,7 @@
 <header class="barra">
   <a class="marca" href="index.html">Grietas del Multiverso</a>
   <nav class="menu">
+    <a href="#senal">La señal</a>
     <a href="#archivo">El archivo</a>
     <a href="#lyra">Lyra Rift</a>
     <a href="#libro">El libro</a>
@@ -31,10 +32,38 @@
   <section class="portada">
     <div>
       <p class="lema">Cada decisión crea un mundo. Aquí se rompen todos.</p>
-      <h1><span>Grietas</span><span>del</span><span>Multiverso</span></h1>
-      <p class="firma">Lyra Rift</p>
+      <h1 class="titulo">
+        <img src="img/logo/titulo.png"
+             alt="Grietas del Multiverso — Lyra Rift"
+             width="2172" height="724" fetchpriority="high">
+      </h1>
       <p class="pie">Once voces · Seis países · Una sola constelación</p>
       <div class="flecha" aria-hidden="true"></div>
+    </div>
+  </section>
+
+
+  <!-- ── Alta en la señal ────────────────────────────────── -->
+  <section class="senal-alta" id="senal">
+    <div class="alta-caja">
+      <p class="numero">Antes de entrar</p>
+      <h2>Recibe la próxima señal</h2>
+      <p class="alta-texto">Las grietas no avisan. Nosotros sí: nuevos relatos,
+         universos que se abren y lo que Lyra Rift decida compartir del archivo.</p>
+
+      <form id="alta" novalidate>
+        <div class="alta-campos">
+          <input type="email" name="EMAIL" required autocomplete="email"
+                 placeholder="tu correo" aria-label="Tu correo electrónico">
+          <button type="submit">Recibir la señal</button>
+        </div>
+        <label class="alta-consent">
+          <input type="checkbox" required>
+          <span>Acepto recibir correos de Valhalla Ediciones y he leído la
+                política de privacidad. Puedo darme de baja cuando quiera.</span>
+        </label>
+        <p class="alta-aviso" hidden></p>
+      </form>
     </div>
   </section>
 
@@ -80,11 +109,11 @@
     <div class="cierre" id="cierre">
       <div class="candado" aria-hidden="true">✦</div>
       <h3>Quién es <em>realmente</em> Lyra Rift</h3>
-      <p>Este tramo del archivo está cerrado. Se abre con una palabra que
-         alguno de los once ya conoce.</p>
+      <p>Este tramo del archivo está cerrado. Se abre con un año:
+         el que se repite a sí mismo cuatro veces.</p>
       <div class="llave">
-        <input id="clave" type="password" autocomplete="off" spellcheck="false"
-               placeholder="palabra clave" aria-label="Palabra clave del archivo">
+        <input id="clave" type="text" inputmode="numeric" autocomplete="off" spellcheck="false"
+               placeholder="año" aria-label="Año que abre el archivo">
         <button id="abrir" type="button">Sintonizar</button>
       </div>
       <p class="error" id="error-clave" hidden></p>
@@ -128,10 +157,10 @@
       <div class="candado" aria-hidden="true">◍</div>
       <h3>El objeto</h3>
       <p>Para verlo hace falta sintonizar la frecuencia.
-         Está en la portada del propio libro, si sabes mirarla.</p>
+         Es una hora: la que dicen que se abren las grietas.</p>
       <div class="llave">
         <input id="codigo" type="text" inputmode="text" autocomplete="off" spellcheck="false"
-               placeholder="— — : — —" aria-label="Código de frecuencia">
+               placeholder="hora" aria-label="Hora que sintoniza la frecuencia">
         <button id="sintonizar" type="button">Sintonizar</button>
       </div>
       <p class="error" id="error-codigo" hidden></p>
@@ -175,10 +204,13 @@
   </span>
 </footer>
 
-<script src="assets/datos.js"></script>
-<script src="assets/multiverso.js"></script>
-<script src="assets/iconos.js"></script>
-<script src="assets/revelacion.js"></script>
-<script src="assets/libro.js"></script>
+<script src="assets/reiniciar.js?v=1"></script>
+<script src="assets/datos.js?v=3"></script>
+<script src="assets/multiverso.js?v=3"></script>
+<script src="assets/iconos.js?v=3"></script>
+<script src="assets/newsletter.js?v=3"></script>
+<script src="assets/revelacion.js?v=6"></script>
+<script src="assets/libro.js?v=6"></script>
+<script src="assets/sonido.js?v=5"></script>
 </body>
 </html>
