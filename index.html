@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Grietas del Multiverso — Lyra Rift</title>
+<meta name="description" content="Once voces, once universos. Una antología de Lyra Rift. Colección Ragnarok, Valhalla Ediciones.">
+<meta property="og:title" content="Grietas del Multiverso">
+<meta property="og:description" content="Cada decisión crea un mundo. Aquí se rompen todos.">
+<meta property="og:type" content="book">
+<link rel="stylesheet" href="assets/estilos.css">
+</head>
+<body>
+
+<canvas id="cielo" aria-hidden="true"></canvas>
+<div id="velo" aria-hidden="true"></div>
+
+<header class="barra">
+  <a class="marca" href="index.html">Grietas del Multiverso</a>
+  <nav class="menu">
+    <a href="#archivo">El archivo</a>
+    <a href="#lyra">Lyra Rift</a>
+    <a href="#libro">El libro</a>
+    <a href="ia/">IA</a>
+  </nav>
+</header>
+
+<main class="capa">
+
+  <!-- ── Portada ─────────────────────────────────────────── -->
+  <section class="portada">
+    <div>
+      <p class="lema">Cada decisión crea un mundo. Aquí se rompen todos.</p>
+      <h1><span>Grietas</span><span>del</span><span>Multiverso</span></h1>
+      <p class="firma">Lyra Rift</p>
+      <p class="pie">Once voces · Seis países · Una sola constelación</p>
+      <div class="flecha" aria-hidden="true"></div>
+    </div>
+  </section>
+
+  <!-- ── Constelación ────────────────────────────────────── -->
+  <section class="archivo" id="archivo">
+    <div class="rotulo">
+      <p class="numero">El archivo</p>
+      <h2>Once señales recibidas</h2>
+      <p>Cada punto es un universo que alguien documentó antes de que se cerrara.
+         Acércate a uno y escucha lo que llegó de él.</p>
+    </div>
+
+    <div class="constelacion">
+      <svg aria-hidden="true"></svg>
+
+      <div class="senal" role="status" aria-live="polite">
+        <p class="meta"></p>
+        <p class="autor"></p>
+        <p class="relato"></p>
+        <p class="cita"></p>
+      </div>
+    </div>
+
+    <p class="reposo">Pasa el cursor sobre una señal</p>
+  </section>
+
+  <!-- ── Lyra Rift: parte pública ────────────────────────── -->
+  <section class="seccion" id="lyra">
+    <h2>Quién es Lyra Rift</h2>
+    <p>Se define como una frecuencia de coherencia narrativa: la señal que persiste
+       cuando once voces distintas, como estrellas de una misma constelación, hablan
+       del mismo universo.</p>
+    <p>No tiene fecha de nacimiento ni lugar de residencia. Tiene, en cambio,
+       una obsesión: documentar las grietas.</p>
+    <p class="destacado">Lyra Rift no escribe. Recibe.<br>
+       Lo que tienes en las manos es lo que decidió que merecía ser leído.</p>
+    <p>Eso es lo que dice la contracubierta. No es toda la verdad.</p>
+  </section>
+
+  <!-- ── Lyra Rift: parte cerrada ────────────────────────── -->
+  <section class="seccion" id="verdad">
+
+    <div class="cierre" id="cierre">
+      <div class="candado" aria-hidden="true">✦</div>
+      <h3>Quién es <em>realmente</em> Lyra Rift</h3>
+      <p>Este tramo del archivo está cerrado. Se abre con una palabra que
+         alguno de los once ya conoce.</p>
+      <div class="llave">
+        <input id="clave" type="password" autocomplete="off" spellcheck="false"
+               placeholder="palabra clave" aria-label="Palabra clave del archivo">
+        <button id="abrir" type="button">Sintonizar</button>
+      </div>
+      <p class="error" id="error-clave" hidden></p>
+    </div>
+
+    <div id="revelado" hidden>
+      <h2>Quién es realmente Lyra Rift</h2>
+
+      <p><!-- ▼▼ TEXTO PROVISIONAL: escrito por Claude, sustitúyelo ▼▼ -->
+         Lyra Rift no es una persona. Tampoco es del todo una invención.</p>
+      <p>Cuando once autores escriben por separado sobre universos que se rompen,
+         ocurre algo que ninguno planeó: empiezan a coincidir. Una imagen que
+         aparece en dos relatos sin que sus autores se conocieran. Un gesto
+         repetido. Un mismo silencio antes del final.</p>
+      <p class="destacado">Lyra Rift es el nombre que le pusimos a esa coincidencia
+         cuando dejó de parecer casualidad.</p>
+      <p>No firmó los relatos. Los reconoció. Fue leyendo lo que llegaba y separando
+         lo que pertenecía a la misma señal de lo que no. Por eso son once y no doce,
+         aunque llegaran más.</p>
+      <p>El archivo que tienes delante es su criterio. Y ahora que has entrado,
+         puedes ver a quienes había detrás de cada señal.
+         <!-- ▲▲ FIN DEL TEXTO PROVISIONAL ▲▲ --></p>
+
+      <p class="destacado">Vuelve a la constelación. Pasa el cursor sobre cualquier
+         punto y haz clic para fijar a quien lo escribió.</p>
+      <p><a href="#archivo" style="color:var(--senal)">↑ Subir al archivo</a></p>
+    </div>
+  </section>
+
+  <!-- ── El libro, tras la frecuencia ────────────────────── -->
+  <section class="seccion" id="libro">
+    <h2>El libro</h2>
+    <p><strong>Grietas del Multiverso</strong> es el primer volumen de las
+       <em>Crónicas de la Fractura</em>, dentro de la Colección Ragnarok de
+       Valhalla Ediciones.</p>
+    <p>Once voces de autores de España, Argentina, México, Venezuela y Colombia,
+       reunidos bajo una misma premisa: todo está conectado, y la grieta lo sabe.</p>
+    <p>ISBN 979-13-99215-01-4</p>
+
+    <div class="cierre" id="puerta-libro" style="margin-top:2.6rem">
+      <div class="candado" aria-hidden="true">◍</div>
+      <h3>El objeto</h3>
+      <p>Para verlo hace falta sintonizar la frecuencia.
+         Está en la portada del propio libro, si sabes mirarla.</p>
+      <div class="llave">
+        <input id="codigo" type="text" inputmode="text" autocomplete="off" spellcheck="false"
+               placeholder="— — : — —" aria-label="Código de frecuencia">
+        <button id="sintonizar" type="button">Sintonizar</button>
+      </div>
+      <p class="error" id="error-codigo" hidden></p>
+    </div>
+
+    <div class="objeto" id="objeto" hidden style="margin-top:2.6rem">
+      <img class="mockup" src="img/libro/mockup-3d.png"
+           alt="Grietas del Multiverso, edición física con cantos tintados"
+           width="1312" height="1199" loading="lazy">
+    </div>
+  </section>
+
+</main>
+
+<!-- Ficha de autor, aparece con el archivo abierto -->
+<aside class="ficha" id="ficha" aria-live="polite">
+  <button class="ficha-cerrar" type="button" aria-label="Cerrar ficha">×</button>
+  <div class="ficha-foto"><span class="ficha-inicial"></span></div>
+  <p class="ficha-autor"></p>
+  <p class="ficha-meta"></p>
+  <p class="ficha-bio"></p>
+  <p class="ficha-redes"></p>
+  <p class="ficha-pista">Haz clic para fijar la biografía</p>
+</aside>
+
+
+<section class="sellos" aria-label="Sellos editoriales">
+  <img class="sello sello-ragnarok" src="img/logo/ragnarok.jpg"
+       alt="Colección Ragnarok" loading="lazy">
+  <span class="separador" aria-hidden="true"></span>
+  <img class="sello sello-ragnarok sello-valhalla" src="img/logo/valhalla.png"
+       alt="Valhalla Ediciones" loading="lazy">
+</section>
+
+<footer class="capa">
+  <span>Valhalla Ediciones · Colección Ragnarok</span>
+  <span>
+    <a href="https://www.valhallaediciones.com" target="_blank" rel="noopener">valhallaediciones.com</a>
+    &nbsp;·&nbsp;
+    <a href="https://instagram.com/valhalla_ediciones" target="_blank" rel="noopener">@valhalla_ediciones</a>
+  </span>
+</footer>
+
+<script src="assets/datos.js"></script>
+<script src="assets/multiverso.js"></script>
+<script src="assets/iconos.js"></script>
+<script src="assets/revelacion.js"></script>
+<script src="assets/libro.js"></script>
+</body>
+</html>

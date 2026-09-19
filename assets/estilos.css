@@ -1,0 +1,860 @@
+/* ============================================================
+   GRIETAS DEL MULTIVERSO — hoja de estilo única
+   Paleta tomada de la cubierta: índigo profundo, cian de señal.
+   ============================================================ */
+
+:root {
+  --noche:      #06041a;
+  --indigo:     #130c3a;
+  --indigo-alt: #1d1352;
+  --senal:      #6fe3ff;
+  --senal-tenue:#2b7f99;
+  --hueso:      #eef1ff;
+  --humo:       rgba(238, 241, 255, 0.58);
+  --linea:      rgba(111, 227, 255, 0.18);
+
+  /* el JS reescribe estas dos al activar un universo */
+  --universo:      #6fe3ff;
+  --universo-hondo:#130c3a;
+
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+/* el atributo hidden debe ganar a cualquier display de clase */
+[hidden] { display: none !important; }
+
+/* ninguna imagen se deforma al limitar su ancho */
+img { max-width: 100%; height: auto; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--noche);
+  color: var(--hueso);
+  font-family: var(--sans);
+  overflow-x: hidden;
+}
+
+body { min-height: 100vh; }
+
+a { color: inherit; text-decoration: none; }
+
+/* ── Lienzo de fondo ───────────────────────────────────────── */
+#cielo {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+}
+
+#velo {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at var(--mx, 50%) var(--my, 45%),
+    color-mix(in srgb, var(--universo) 16%, transparent) 0%,
+    transparent 55%
+  );
+  transition: background 700ms ease;
+}
+
+/* ── Estructura ────────────────────────────────────────────── */
+.capa { position: relative; z-index: 2; }
+
+header.barra {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.15rem clamp(1rem, 4vw, 3rem);
+  backdrop-filter: blur(9px);
+  background: linear-gradient(to bottom, rgba(6, 4, 26, 0.82), transparent);
+}
+
+.marca {
+  font-size: 0.72rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--humo);
+  white-space: nowrap;
+}
+
+nav.menu {
+  display: flex;
+  gap: clamp(0.9rem, 2.4vw, 2.2rem);
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+nav.menu a {
+  color: var(--humo);
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+  transition: color 240ms, border-color 240ms;
+}
+
+nav.menu a:hover,
+nav.menu a[aria-current="page"] {
+  color: var(--senal);
+  border-bottom-color: var(--senal);
+}
+
+/* ── Portada ───────────────────────────────────────────────── */
+.portada {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 7rem 1.5rem 4rem;
+}
+
+.portada .lema {
+  font-size: clamp(0.72rem, 1.5vw, 0.9rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--senal);
+  margin-bottom: 1.6rem;
+  opacity: 0;
+  animation: emerger 1.2s 200ms forwards;
+}
+
+.portada h1 {
+  margin: 0;
+  font-family: var(--sans);
+  font-weight: 800;
+  font-size: clamp(2.6rem, 11vw, 9rem);
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: emerger 1.4s 420ms forwards;
+}
+
+.portada h1 span { display: block; }
+
+.portada .firma {
+  margin-top: 1.8rem;
+  font-size: clamp(0.75rem, 1.7vw, 1rem);
+  letter-spacing: 0.44em;
+  text-transform: uppercase;
+  color: var(--humo);
+  opacity: 0;
+  animation: emerger 1.4s 760ms forwards;
+}
+
+.portada .pie {
+  margin-top: 3.2rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--humo);
+  text-transform: uppercase;
+  opacity: 0;
+  animation: emerger 1.4s 1000ms forwards;
+}
+
+.flecha {
+  margin-top: 2.4rem;
+  width: 1px;
+  height: 46px;
+  background: linear-gradient(to bottom, transparent, var(--senal));
+  animation: respirar 2.6s ease-in-out infinite;
+}
+
+@keyframes emerger {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes respirar {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 1; }
+}
+
+/* ── Constelación ──────────────────────────────────────────── */
+.archivo {
+  min-height: 100svh;
+  padding: clamp(3rem, 8vh, 6rem) clamp(1rem, 4vw, 3rem) 5rem;
+}
+
+.rotulo {
+  text-align: center;
+  margin-bottom: clamp(1.5rem, 4vh, 3rem);
+}
+
+.rotulo .numero {
+  font-size: 0.68rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--senal);
+}
+
+.rotulo h2 {
+  margin: 0.7rem 0 0.6rem;
+  font-size: clamp(1.5rem, 4vw, 2.6rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+}
+
+.rotulo p {
+  margin: 0 auto;
+  max-width: 52ch;
+  color: var(--humo);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.constelacion {
+  position: relative;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  aspect-ratio: 16 / 9;
+  min-height: 420px;
+}
+
+.constelacion svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.enlace {
+  stroke: var(--linea);
+  stroke-width: 1;
+  transition: stroke 400ms, stroke-width 400ms;
+}
+
+.enlace.vivo {
+  stroke: var(--universo);
+  stroke-width: 1.6;
+}
+
+.nodo {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+}
+
+.nodo .punto {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--senal);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--senal) 50%, transparent);
+  transition: transform 320ms cubic-bezier(.2,.8,.2,1),
+              background 320ms, box-shadow 420ms;
+}
+
+.nodo .halo {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--linea);
+  border-radius: 50%;
+  transform: scale(0.6);
+  opacity: 0;
+  transition: transform 460ms cubic-bezier(.2,.8,.2,1), opacity 460ms, border-color 460ms;
+}
+
+.nodo .cifra {
+  position: absolute;
+  top: -4px;
+  font-size: 0.56rem;
+  letter-spacing: 0.16em;
+  color: var(--humo);
+  opacity: 0;
+  transition: opacity 360ms;
+}
+
+.nodo:hover .punto,
+.nodo.activo .punto,
+.nodo:focus-visible .punto {
+  transform: scale(1.7);
+  background: #fff;
+  box-shadow: 0 0 22px 5px color-mix(in srgb, var(--universo) 65%, transparent);
+}
+
+.nodo:hover .halo,
+.nodo.activo .halo,
+.nodo:focus-visible .halo {
+  transform: scale(1);
+  opacity: 1;
+  border-color: var(--universo);
+}
+
+.nodo:hover .cifra,
+.nodo.activo .cifra,
+.nodo:focus-visible .cifra { opacity: 1; }
+
+/* ── Panel de señal ────────────────────────────────────────── */
+.senal {
+  position: absolute;
+  left: 50%;
+  bottom: -2.2rem;
+  transform: translateX(-50%);
+  width: min(620px, 92%);
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 420ms;
+}
+
+.senal.visible { opacity: 1; }
+
+.senal .meta {
+  font-size: 0.64rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--universo);
+  margin-bottom: 0.7rem;
+}
+
+.senal .autor {
+  font-size: clamp(1.1rem, 2.6vw, 1.7rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.35rem;
+}
+
+.senal .relato {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--humo);
+  margin-bottom: 0.9rem;
+}
+
+.senal .cita {
+  font-family: var(--serif);
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--hueso);
+  max-width: 46ch;
+  margin: 0 auto;
+}
+
+.reposo {
+  text-align: center;
+  color: var(--humo);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: opacity 420ms;
+}
+
+.reposo.oculto { opacity: 0; }
+
+/* ── Bloques de texto ──────────────────────────────────────── */
+.seccion {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: clamp(4rem, 12vh, 8rem) clamp(1.2rem, 4vw, 2rem);
+}
+
+.seccion h2 {
+  font-size: clamp(1.4rem, 3.4vw, 2.2rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  margin: 0 0 1.4rem;
+}
+
+.seccion p {
+  color: var(--humo);
+  line-height: 1.85;
+  font-size: 1rem;
+  margin: 0 0 1.1rem;
+}
+
+.seccion .destacado {
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2.6vw, 1.45rem);
+  font-style: italic;
+  color: var(--hueso);
+  line-height: 1.6;
+  border-left: 1px solid var(--senal);
+  padding-left: 1.4rem;
+  margin: 2.4rem 0;
+}
+
+/* ── Pie ───────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid rgba(111, 227, 255, 0.12);
+  padding: 3rem clamp(1.2rem, 4vw, 3rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.4rem;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--humo);
+}
+
+footer a:hover { color: var(--senal); }
+
+/* ── Página del chatbot ────────────────────────────────────── */
+.ia {
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 7rem clamp(1rem, 4vw, 3rem) clamp(2rem, 6vh, 4rem);
+  gap: 2rem;
+}
+
+.ia .intro { text-align: center; max-width: 620px; margin: 0 auto; }
+
+.ia .intro h1 {
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0 0 1rem;
+}
+
+.ia .intro p {
+  color: var(--humo);
+  line-height: 1.8;
+  font-size: 0.95rem;
+  margin: 0 0 0.6rem;
+}
+
+.marco {
+  width: min(880px, 100%);
+  margin: 0 auto;
+  height: clamp(460px, 62vh, 720px);
+  border: 1px solid rgba(111, 227, 255, 0.22);
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(19, 12, 58, 0.55);
+  box-shadow: 0 0 60px rgba(111, 227, 255, 0.08);
+  position: relative;
+}
+
+.marco iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.aviso {
+  text-align: center;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--humo);
+  margin-top: 1.2rem;
+}
+
+/* ── Adaptación a pantallas pequeñas ───────────────────────── */
+@media (max-width: 760px) {
+  header.barra { flex-direction: column; align-items: flex-start; gap: 0.7rem; }
+  nav.menu { flex-wrap: wrap; gap: 0.9rem; }
+  .constelacion { aspect-ratio: 3 / 4; min-height: 520px; }
+  .senal { position: static; transform: none; margin: 2.5rem auto 0; opacity: 1; }
+  .nodo { width: 48px; height: 48px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   EL ARCHIVO CERRADO — puertas, ficha de autor y lupa
+   ============================================================ */
+
+.cierre {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+  border: 1px solid rgba(111, 227, 255, 0.2);
+  border-radius: 16px;
+  padding: clamp(2rem, 6vw, 3.4rem) clamp(1.2rem, 5vw, 2.6rem);
+  background: rgba(10, 6, 34, 0.55);
+  backdrop-filter: blur(6px);
+}
+
+.cierre .candado {
+  width: 34px;
+  height: 34px;
+  margin: 0 auto 1.4rem;
+  border: 1px solid var(--senal);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--senal);
+  font-size: 0.85rem;
+  animation: respirar 3.4s ease-in-out infinite;
+}
+
+.cierre h3 {
+  margin: 0 0 0.8rem;
+  font-size: clamp(1.15rem, 3vw, 1.6rem);
+  font-weight: 300;
+  letter-spacing: 0.06em;
+}
+
+.cierre p {
+  color: var(--humo);
+  font-size: 0.92rem;
+  line-height: 1.75;
+  margin: 0 0 1.8rem;
+}
+
+.llave {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.llave input {
+  flex: 1 1 220px;
+  max-width: 280px;
+  background: rgba(6, 4, 26, 0.7);
+  border: 1px solid rgba(111, 227, 255, 0.28);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  color: var(--hueso);
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  letter-spacing: 0.14em;
+  text-align: center;
+}
+
+.llave input:focus {
+  outline: none;
+  border-color: var(--senal);
+  box-shadow: 0 0 0 3px rgba(111, 227, 255, 0.12);
+}
+
+.llave button {
+  background: var(--senal);
+  color: #04121a;
+  border: 0;
+  border-radius: 8px;
+  padding: 0.85rem 1.6rem;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 200ms, filter 200ms;
+}
+
+.llave button:hover { transform: translateY(-1px); filter: brightness(1.12); }
+
+.error {
+  margin: 1rem 0 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff8aa6;
+}
+
+/* ── Ficha de autor (solo con el archivo abierto) ─────────── */
+.constelacion.revelado .nodo::after {
+  content: "";
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--universo) 40%, transparent), transparent 70%);
+  filter: blur(9px);
+  opacity: 0;
+  transition: opacity 420ms;
+  pointer-events: none;
+}
+
+.constelacion.revelado .nodo:hover::after,
+.constelacion.revelado .nodo.activo::after { opacity: 1; }
+
+.ficha {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2.4rem);
+  bottom: clamp(1rem, 3vw, 2.4rem);
+  z-index: 30;
+  width: min(380px, calc(100vw - 2rem));
+  border: 1px solid rgba(111, 227, 255, 0.24);
+  border-radius: 14px;
+  background: rgba(10, 6, 34, 0.9);
+  backdrop-filter: blur(12px);
+  padding: 1.3rem;
+  opacity: 0;
+  transform: translateY(14px);
+  pointer-events: none;
+  transition: opacity 380ms, transform 380ms, border-color 380ms;
+}
+
+.ficha.visible { opacity: 1; transform: none; }
+.ficha.fijada {
+  pointer-events: auto;
+  border-color: var(--universo);
+  box-shadow: 0 0 40px color-mix(in srgb, var(--universo) 22%, transparent);
+}
+
+.ficha-foto {
+  width: clamp(104px, 11vw, 132px);
+  height: clamp(104px, 11vw, 132px);
+  border-radius: 50%;
+  background: linear-gradient(140deg, var(--indigo-alt), var(--noche));
+  background-size: cover;
+  background-position: center;
+  border: 1px solid rgba(111, 227, 255, 0.3);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 1rem;
+  filter: blur(6px) saturate(0.65);
+  transition: filter 500ms;
+}
+
+.ficha.fijada .ficha-foto { filter: none; }
+
+.ficha-inicial {
+  font-size: 1.6rem;
+  letter-spacing: 0.1em;
+  color: var(--humo);
+}
+
+.ficha.fijada .ficha-inicial { opacity: 0; }
+
+.ficha-autor { margin: 0 0 0.25rem; font-size: 1.02rem; font-weight: 600; }
+
+.ficha-meta {
+  margin: 0 0 0.9rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--universo);
+}
+
+.ficha-bio {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.7;
+  color: var(--humo);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 520ms ease;
+}
+
+.ficha.fijada .ficha-bio { max-height: 340px; }
+
+.ficha-pista {
+  margin: 0.6rem 0 0;
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(238, 241, 255, 0.4);
+}
+
+.ficha.fijada .ficha-pista { display: none; }
+
+.ficha-cerrar {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.8rem;
+  background: none;
+  border: 0;
+  color: var(--humo);
+  font-size: 1.1rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.ficha.fijada .ficha-cerrar { opacity: 1; }
+
+/* ── El objeto y su lupa ──────────────────────────────────── */
+.objeto { text-align: center; }
+
+.mockup {
+  display: block;
+  max-width: min(620px, 100%);
+  height: auto;
+  margin: 0 auto;
+  border-radius: 6px;
+  filter: drop-shadow(0 22px 50px rgba(0, 0, 0, 0.55));
+  transition: transform 700ms cubic-bezier(.2,.8,.2,1),
+              filter 700ms ease;
+}
+
+.mockup:hover {
+  transform: translateY(-10px);
+  filter: drop-shadow(0 34px 70px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 0 30px color-mix(in srgb, var(--senal) 28%, transparent));
+}
+
+
+
+
+
+@media (max-width: 760px) {
+  .ficha { position: static; width: 100%; margin-top: 2rem; opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   SELLOS DE PIE — Colección Ragnarok y valknut de Valhalla
+   ============================================================ */
+
+.sellos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2.2rem, 7vw, 4.5rem);
+  padding: clamp(3rem, 9vh, 5rem) 1.5rem clamp(1.5rem, 4vh, 2.5rem);
+  border-top: 1px solid rgba(111, 227, 255, 0.1);
+  flex-wrap: wrap;
+}
+
+.sello {
+  display: block;
+  opacity: 0.55;
+  transition: opacity 420ms, filter 420ms, transform 420ms;
+}
+
+.sello:hover { opacity: 1; transform: translateY(-3px); }
+
+/* El logo llega en negro sobre blanco: lo invertimos y quitamos
+   el fondo con 'screen', que hace transparente todo lo negro.
+   Si un día lo guardas en PNG con transparencia, quita el filter. */
+.sello-ragnarok {
+  height: clamp(42px, 6vw, 62px);
+  width: auto;
+  filter: invert(1);
+  mix-blend-mode: screen;
+}
+
+.sello-valknut {
+  height: clamp(46px, 6.5vw, 68px);
+  width: auto;
+  color: var(--hueso);
+}
+
+.sello-valknut:hover { color: var(--senal); }
+
+.sellos .separador {
+  width: 1px;
+  height: 46px;
+  background: linear-gradient(to bottom, transparent, var(--linea), transparent);
+}
+
+@media (max-width: 520px) {
+  .sellos .separador { display: none; }
+}
+
+/* el sello de Valhalla es más pequeño en origen: lo igualamos ópticamente */
+.sello-valhalla { height: clamp(38px, 5vw, 54px); }
+
+/* con el retrato grande, el texto de la ficha va centrado */
+.ficha-autor, .ficha-meta, .ficha-bio, .ficha-pista { text-align: center; }
+.ficha-bio { text-align: left; }
+
+.ficha-redes {
+  margin: 0.8rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--universo);
+  text-align: center;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 520ms ease;
+}
+
+.ficha.fijada .ficha-redes { max-height: 40px; }
+
+/* ============================================================
+   LOS ONCE SÍMBOLOS — elementos flotantes
+   Vienen del PDF en negro: se invierten a blanco y se atenúan.
+   ============================================================ */
+
+.simbolos {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.simbolo {
+  position: absolute;
+  width: clamp(40px, 5.5vw, 78px);
+  height: auto;
+  filter: invert(1);
+  opacity: calc(0.085 * var(--fondo, 1));
+  transform: translate(var(--dx, 0), var(--dy, 0))
+             rotate(var(--giro, 0deg)) scale(var(--escala, 1));
+  animation: derivar var(--ciclo, 32s) var(--demora, 0s) ease-in-out infinite;
+  transition: opacity 700ms ease, filter 700ms ease;
+  will-change: transform;
+}
+
+@keyframes derivar {
+  0%, 100% { margin-top: 0; margin-left: 0; }
+  25%      { margin-top: -26px; margin-left: 14px; }
+  50%      { margin-top: -8px;  margin-left: -18px; }
+  75%      { margin-top: 20px;  margin-left: 10px; }
+}
+
+/* el símbolo del universo activo sale a primer plano */
+.simbolo.encendido {
+  opacity: 0.52;
+  filter: invert(1)
+          drop-shadow(0 0 16px color-mix(in srgb, var(--universo) 75%, transparent));
+}
+
+/* el mismo símbolo, marcando su nodo en la constelación */
+.nodo-simbolo {
+  position: absolute;
+  width: 26px;
+  height: auto;
+  filter: invert(1);
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 420ms, transform 460ms cubic-bezier(.2,.8,.2,1);
+  pointer-events: none;
+}
+
+.nodo:hover .nodo-simbolo,
+.nodo.activo .nodo-simbolo,
+.nodo:focus-visible .nodo-simbolo {
+  opacity: 0.9;
+  transform: scale(1) translateY(-30px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .simbolo { animation: none; }
+}
+
+/* ── Ficha de autor: retrato y texto más grandes ──────────── */
+.ficha { width: min(440px, calc(100vw - 2rem)); padding: 1.6rem 1.5rem; }
+.ficha-foto { width: clamp(140px, 15vw, 180px); height: clamp(140px, 15vw, 180px); }
+.ficha-autor { font-size: clamp(1.15rem, 2.4vw, 1.4rem); }
+.ficha-meta { font-size: 0.78rem; }
+.ficha-bio { font-size: 0.95rem; line-height: 1.75; }
+.ficha.fijada .ficha-bio { max-height: 460px; overflow-y: auto; }
+.ficha-redes { font-size: 0.8rem; }

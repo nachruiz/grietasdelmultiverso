@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 180" width="200" height="180" role="img" aria-label="Valknut, sello de Valhalla Ediciones">
+  <g fill="none" stroke="currentColor" stroke-width="11" stroke-linejoin="miter">
+    <!-- triángulo superior -->
+    <path d="M100 8 L143 84 L57 84 Z"/>
+    <!-- triángulo inferior izquierdo -->
+    <path d="M57 62 L100 138 L14 138 Z"/>
+    <!-- triángulo inferior derecho -->
+    <path d="M143 62 L186 138 L100 138 Z"/>
+  </g>
+</svg>
