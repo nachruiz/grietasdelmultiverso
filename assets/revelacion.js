@@ -29,10 +29,10 @@
   }
 
   function recordado() {
-    try { return localStorage.getItem(LLAVE) === "1"; } catch { return false; }
+    try { return localStorage.getItem(LLAVE); } catch { return null; }
   }
-  function recordar() {
-    try { localStorage.setItem(LLAVE, "1"); } catch { /* modo privado */ }
+  function recordar(clave) {
+    try { localStorage.setItem(LLAVE, clave); } catch { /* modo privado */ }
   }
 
   function abrir(conAnimacion) {
@@ -70,13 +70,14 @@
       error.hidden = false;
       return;
     }
-    const h = await huella(v);
-    contar(v, h);
-    if (h === HUELLA) {
-      recordar();
+    try {
+      await ARCHIVO.abrir(v);                 // si la clave falla, lanza
+      recordar(v);
       abrir(true);
-    } else {
-      error.textContent = "Ese no es el año.";
+    } catch (err) {
+      error.textContent = err.message === "sin-cripto"
+        ? "Esta página necesita https para abrir el archivo."
+        : "Ese no es el año.";
       error.hidden = false;
       campo.value = "";
       cierre.animate(
@@ -93,7 +94,12 @@
     if (e.key === "Enter") intentar();
   });
 
-  if (recordado()) abrir(false);
+  const guardada = recordado();
+  if (guardada) {
+    ARCHIVO.abrir(guardada).then(() => abrir(false)).catch(() => {
+      try { localStorage.removeItem(LLAVE); } catch {}
+    });
+  }
 
   /* ── Fichas de autor: solo con el archivo abierto ───────── */
   const ficha = document.getElementById("ficha");

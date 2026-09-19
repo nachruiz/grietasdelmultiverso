@@ -131,7 +131,7 @@
     b.type = "button";
     b.style.left = u.x * 100 + "%";
     b.style.top = u.y * 100 + "%";
-    b.setAttribute("aria-label", `Universo ${u.id}: ${u.autor}`);
+    b.setAttribute("aria-label", `Universo ${u.id}: ${u.titulo}`);
     b.innerHTML = `<span class="halo"></span><span class="punto"></span>` +
                   `<span class="cifra">${String(u.id).padStart(2, "0")}</span>`;
     const activar = () => encender(u, b);
@@ -159,8 +159,9 @@
     lineas.forEach((arr, id) => arr.forEach(l => l.classList.toggle("vivo", id === u.id)));
 
     panel.querySelector(".meta").textContent =
-      `Señal ${String(u.id).padStart(2, "0")} de 11 · ${u.pais}`;
-    panel.querySelector(".autor").textContent = u.autor;
+      `Señal ${String(u.id).padStart(2, "0")} de 11`;
+    // el autor solo aparece con el archivo descifrado
+    panel.querySelector(".autor").textContent = u.autor || "Transmisión anónima";
     panel.querySelector(".relato").textContent = u.titulo;
     panel.querySelector(".cita").textContent = `«${u.fragmento}»`;
     panel.classList.add("visible");

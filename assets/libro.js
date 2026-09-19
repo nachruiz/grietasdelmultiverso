@@ -22,8 +22,12 @@
     return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, "0")).join("");
   }
 
-  const guardado = () => { try { return localStorage.getItem(LLAVE) === "1"; } catch { return false; } };
-  const guardar  = () => { try { localStorage.setItem(LLAVE, "1"); } catch {} };
+  const guardado = () => { try { return localStorage.getItem(LLAVE); } catch { return null; } };
+  const guardar  = c => { try { localStorage.setItem(LLAVE, c); } catch {} };
+  function ponerMockup(ruta) {
+    const img = objeto.querySelector(".mockup");
+    if (img && ruta) { img.src = ruta; img.removeAttribute("data-espera"); }
+  }
 
   function revelar(animar) {
     puerta.hidden = true;
@@ -58,13 +62,15 @@
       fallo.hidden = false;
       return;
     }
-    const h = await huella(v);
-    contar(v, h);
-    if (h === HUELLA) {
-      guardar();
+    try {
+      const secreto = await ARCHIVO.abrir(v);
+      ponerMockup(secreto.mockup);
+      guardar(v);
       revelar(true);
-    } else {
-      fallo.textContent = "Frecuencia incorrecta.";
+    } catch (err) {
+      fallo.textContent = err.message === "sin-cripto"
+        ? "Esta página necesita https para sintonizar."
+        : "Frecuencia incorrecta.";
       fallo.hidden = false;
       campo.value = "";
       puerta.animate(
@@ -80,6 +86,11 @@
     if (e.key === "Enter") probar();
   });
 
-  if (guardado()) revelar(false);
+  const previa = guardado();
+  if (previa) {
+    ARCHIVO.abrir(previa)
+      .then(sec => { ponerMockup(sec.mockup); revelar(false); })
+      .catch(() => { try { localStorage.removeItem(LLAVE); } catch {} });
+  }
 
 })();
