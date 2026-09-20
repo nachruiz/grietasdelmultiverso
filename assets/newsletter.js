@@ -58,11 +58,28 @@ const CAMPO_ORIGEN = "ORIGEN";     // solo se guarda si el formulario de Brevo l
       datos.append("email_address_check", "");   // trampa antispam: debe ir vacía
       datos.append("locale", "es");
       datos.append(CAMPO_ORIGEN, "grietasdelmultiverso.com");
-      await fetch(ACCION, { method: "POST", body: datos, mode: "no-cors" });
+
+      // Brevo permite leer su respuesta desde el dominio autorizado, así que
+      // mostramos lo que dice de verdad en lugar de dar por bueno el envío.
+      // Desde otro origen (pruebas en local) el navegador la bloquea: ahí
+      // reintentamos a ciegas.
+      let mensaje = null;
+      try {
+        const r = await fetch(ACCION, { method: "POST", body: datos });
+        const j = await r.json();
+        if (!j.success) throw new Error(j.message || "rechazado");
+        mensaje = j.message;
+      } catch (err) {
+        if (err instanceof TypeError) {                 // bloqueo de origen
+          await fetch(ACCION, { method: "POST", body: datos, mode: "no-cors" });
+        } else {
+          throw err;
+        }
+      }
       form.querySelector(".alta-campos").hidden = true;
-      decir("Recibido. Te hemos enviado un correo: confirma el alta desde ahí.", false);
-    } catch {
-      decir("No hemos podido transmitir. Inténtalo en un momento.", true);
+      decir(mensaje || "Recibido. Revisa tu correo para confirmar el alta.", false);
+    } catch (err) {
+      decir(err.message || "No hemos podido transmitir. Inténtalo en un momento.", true);
       boton.disabled = false;
       boton.textContent = "Recibir la señal";
     }
