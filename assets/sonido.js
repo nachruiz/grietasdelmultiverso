@@ -60,24 +60,34 @@
   function construir() {
     ctx = new (window.AudioContext || window.webkitAudioContext)();
 
+    // Limitador: cuando coinciden arpegio, ecos, acordes y pulso, la suma
+    // se pasa del máximo y el altavoz recorta. Esto lo contiene.
+    const limitador = ctx.createDynamicsCompressor();
+    limitador.threshold.value = -14;
+    limitador.knee.value = 6;
+    limitador.ratio.value = 12;
+    limitador.attack.value = 0.004;
+    limitador.release.value = 0.22;
+    limitador.connect(ctx.destination);
+
     maestro = ctx.createGain();
     maestro.gain.value = 0;
-    maestro.connect(ctx.destination);
+    maestro.connect(limitador);
 
     envio = ctx.createGain();
-    envio.gain.value = 0.42;
+    envio.gain.value = 0.34;
     envio.connect(reverberacion()).connect(maestro);
 
     // eco a contratiempo: la sensación de espacio enorme
     const retardo = ctx.createDelay(2);
     retardo.delayTime.value = PASO * 3;
     const realim = ctx.createGain();
-    realim.gain.value = 0.38;
+    realim.gain.value = 0.28;
     const fe = ctx.createBiquadFilter();
     fe.type = "lowpass";
     fe.frequency.value = 2400;
     eco = ctx.createGain();
-    eco.gain.value = 0.42;
+    eco.gain.value = 0.34;
     eco.connect(retardo);
     retardo.connect(fe).connect(realim).connect(retardo);
     fe.connect(maestro);
@@ -126,7 +136,7 @@
     // dos sierras desafinadas: el timbre característico
     const g = ctx.createGain();
     g.gain.setValueAtTime(0, t);
-    g.gain.linearRampToValueAtTime(0.085, t + 0.008);
+    g.gain.linearRampToValueAtTime(0.062, t + 0.008);
     g.gain.exponentialRampToValueAtTime(0.0001, t + PASO * 2.4);
     const p = ctx.createStereoPanner();
     p.pan.value = pan;
@@ -205,7 +215,7 @@
         const raiz = PROGRESION[grado];
         const dur = PASO * COMPAS;
         ACORDE.forEach((semi, k) => {
-          pad(t, nota(raiz + semi, k === 0 ? 0.5 : 1), dur, 0.09 / (k * 0.6 + 1),
+          pad(t, nota(raiz + semi, k === 0 ? 0.5 : 1), dur, 0.062 / (k * 0.6 + 1),
               [-0.55, 0.5, -0.3, 0.35][k]);
         });
       }
