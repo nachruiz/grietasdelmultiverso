@@ -10,7 +10,7 @@
 (() => {
   "use strict";
   if (!location.search.includes("reiniciar")) return;
-  ["gdm_archivo_abierto", "gdm_libro_abierto", "gdm_sonido"].forEach(k => {
+  ["gdm_archivo_abierto", "gdm_libro_abierto", "gdm_sonido", "gdm_visitados"].forEach(k => {
     try { localStorage.removeItem(k); } catch {}
   });
   location.replace(location.pathname);      // vuelve a la URL limpia

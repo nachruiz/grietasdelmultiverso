@@ -1059,3 +1059,620 @@ footer a:hover { color: var(--senal); }
 @media (prefers-reduced-motion: reduce) {
   .portada h1.titulo img { animation: none; }
 }
+
+/* ============================================================
+   LA ESCENA — ilustración inmersiva de un relato
+   ============================================================ */
+
+.escena {
+  position: fixed;
+  left: clamp(0.8rem, 2.5vw, 2.6rem);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 55;
+  width: var(--ancho, clamp(340px, 31vw, 650px));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  /* no tapa nada: solo el panel recibe el ratón */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 520ms ease;
+}
+
+.escena.dentro { opacity: 1; }
+
+.escena-marco {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  cursor: pointer;
+  pointer-events: auto;
+  filter: drop-shadow(0 8px 60px rgba(6, 4, 26, 0.75));
+  transform: scale(0.97);
+  transition: transform 620ms cubic-bezier(.2,.8,.2,1);
+}
+
+.escena.dentro .escena-marco { transform: none; }
+
+.escena-base,
+.escena-velo,
+.escena-desfase {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* La capa velada cubre la izquierda y se disuelve hacia la derecha:
+   la señal llega antes por un lado que por otro. */
+.escena-velo {
+  filter: blur(16px) saturate(0.7) brightness(1.1);
+  opacity: 0.95;
+  -webkit-mask-image: linear-gradient(to right,
+      rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 26%, rgba(0,0,0,0.45) 52%, rgba(0,0,0,0) 78%);
+  mask-image: linear-gradient(to right,
+      rgba(0,0,0,1) 0%, rgba(0,0,0,0.95) 26%, rgba(0,0,0,0.45) 52%, rgba(0,0,0,0) 78%);
+  transition: opacity 900ms ease, filter 900ms ease;
+}
+
+.escena.nitida .escena-velo { opacity: 0; filter: blur(0) saturate(1); }
+
+/* ── Los portales ─────────────────────────────────────────── */
+.escena-portales { position: absolute; inset: 0; }
+
+.portal {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: inherit;            /* no insinúa que se pueda pulsar */
+  transition: border-color 420ms, box-shadow 520ms, background 520ms;
+}
+
+.portal::after {
+  content: "";
+  position: absolute;
+  inset: -18%;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+              rgba(111, 227, 255, 0.34) 0%,
+              rgba(111, 227, 255, 0.10) 45%,
+              transparent 70%);
+  opacity: 0;
+  transition: opacity 520ms ease;
+  pointer-events: none;
+}
+
+.portal:hover {
+  border-color: rgba(160, 240, 255, 0.75);
+  background: rgba(111, 227, 255, 0.06);
+  box-shadow: 0 0 34px rgba(111, 227, 255, 0.4),
+              inset 0 0 26px rgba(111, 227, 255, 0.22);
+}
+
+.portal:hover::after { opacity: 1; }
+
+.portal-nombre {
+  position: absolute;
+  left: 50%;
+  bottom: -1.9rem;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 0.6rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--senal);
+  opacity: 0;
+  transition: opacity 380ms;
+  pointer-events: none;
+}
+
+.portal:hover .portal-nombre { opacity: 1; }
+
+/* ── Textos ───────────────────────────────────────────────── */
+.escena-pie {
+  position: absolute;
+  left: 0;
+  bottom: -2.2rem;
+  font-size: 0.68rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--humo);
+}
+
+.escena-pista {
+  margin: 0;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(238, 241, 255, 0.45);
+  transition: color 420ms;
+}
+
+.escena.nitida .escena-pista { color: var(--senal); }
+
+.escena-cerrar {
+  position: absolute;
+  top: -0.6rem;
+  right: -0.6rem;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(111, 227, 255, 0.3);
+  border-radius: 50%;
+  background: rgba(10, 6, 34, 0.85);
+  pointer-events: auto;
+  color: var(--hueso);
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 2;
+  transition: border-color 300ms, color 300ms;
+}
+
+.escena-cerrar:hover { border-color: var(--senal); color: var(--senal); }
+
+@media (max-width: 760px) {
+  .escena-marco { width: min(82vw, 460px); }
+  .portal-nombre { display: none; }
+  .escena-pie { position: static; display: block; margin-top: 0.8rem; text-align: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .escena, .escena-marco, .escena-velo, .portal { transition: none; }
+}
+
+/* ── El eco: la silueta se adivina al rozar la estrella ───── */
+.eco {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 62%;
+  height: auto;
+  transform: translate(-50%, -50%) scale(1.04);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(26px) saturate(1.6) brightness(1.5) contrast(1.15);
+  mix-blend-mode: screen;
+  transition: opacity 700ms ease, filter 700ms ease;
+}
+
+.eco.visible {
+  opacity: 0.82;
+  filter: blur(9px) saturate(1.8) brightness(1.55) contrast(1.2);
+  animation: ondular 7s ease-in-out infinite;
+}
+
+/* la onda: la señal no llega estable, respira y se desplaza */
+@keyframes ondular {
+  0%, 100% { transform: translate(-50%, -50%)     scale(1.03) skewX(0deg);    filter: blur(9px)  saturate(1.8) brightness(1.55); }
+  20%      { transform: translate(-53%, -52%)     scale(1.09) skewX(1.2deg);  filter: blur(16px) saturate(1.5) brightness(1.30); }
+  45%      { transform: translate(-48%, -47.5%)   scale(1.05) skewX(-0.9deg); filter: blur(7px)  saturate(2.0) brightness(1.70); }
+  70%      { transform: translate(-52%, -51%)     scale(1.10) skewX(0.8deg);  filter: blur(18px) saturate(1.4) brightness(1.28); }
+  85%      { transform: translate(-49%, -49%)     scale(1.04) skewX(-0.5deg); filter: blur(11px) saturate(1.9) brightness(1.60); }
+}
+
+@media (max-width: 760px) {
+  .eco { width: 88%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eco.visible { animation: none; }
+}
+
+/* ── Móvil: la escena arriba, la ficha como panel inferior ── */
+@media (max-width: 760px) {
+  .escena {
+    left: 0; right: 0;
+    top: auto;
+    bottom: auto;
+    top: 4.6rem;
+    transform: none;
+    width: auto;
+    padding: 0 1rem;
+  }
+  .escena-marco { max-width: 100%; }
+
+  /* La ficha dejaba de ser flotante y caía al final de la página.
+     Ahora sube como panel inferior, encima del contenido. */
+  .ficha {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    width: auto;
+    max-width: none;
+    max-height: 58vh;
+    overflow-y: auto;
+    border-radius: 16px 16px 0 0;
+    border-bottom: 0;
+    margin: 0;
+    opacity: 1;
+    transform: translateY(101%);
+    transition: transform 420ms cubic-bezier(.2,.8,.2,1);
+    padding-bottom: calc(1.3rem + env(safe-area-inset-bottom, 0px));
+  }
+  .ficha.visible { transform: none; }
+  .ficha-foto { width: 96px; height: 96px; }
+  .ficha.fijada .ficha-bio { max-height: 30vh; }
+}
+
+/* ── La escena, mientras no se estabiliza ─────────────────────
+   Deriva despacio en las dos direcciones y la capa velada se
+   desplaza respecto a la nítida: una imagen que no termina de
+   fijarse. Al estabilizarla, todo se detiene. */
+
+.escena-marco {
+  /* dos ritmos distintos a la vez: recorrido y respiración.
+     Al no ser múltiplos, la combinación nunca se repite igual.
+     Se declaran siempre: estabilizar solo las PAUSA, de modo que
+     al soltarlas continúan desde donde se quedaron. */
+  animation: derivar-escena 26s ease-in-out infinite,
+             respirar-escena 12s ease-in-out infinite;
+}
+
+.escena:not(.nitida) .escena-marco { opacity: 0.88; }
+
+.escena:not(.nitida) .escena-marco:hover,
+.escena.nitida .escena-marco { animation-play-state: paused; }
+
+@keyframes respirar-escena {
+  /* arranca casi en su tamaño máximo y desde ahí se va encogiendo:
+     la señal llega fuerte y se pierde, no al revés */
+  0%, 100% { width: 178%; }
+  18%      { width: 196%; }
+  40%      { width: 112%; }
+  58%      { width: 66%;  }
+  78%      { width: 146%; }
+  90%      { width: 88%;  }
+}
+
+
+
+@keyframes derivar-escena {
+  0%, 100% { transform: translate(0, 0)             rotate(0deg)    scale(1); }
+  14%      { transform: translate(14vw, -9vh)        rotate(-1.1deg) scale(0.96); }
+  29%      { transform: translate(38vw, 5vh)         rotate(0.8deg)  scale(1.05); }
+  43%      { transform: translate(22vw, 16vh)        rotate(-0.6deg) scale(0.99); }
+  57%      { transform: translate(45vw, -6vh)        rotate(1.3deg)  scale(1.03); }
+  71%      { transform: translate(9vw, -17vh)        rotate(-0.9deg) scale(0.97); }
+  86%      { transform: translate(30vw, 11vh)        rotate(0.5deg)  scale(1.02); }
+}
+
+/* la capa borrosa se descuadra respecto a la nítida: eco fantasma */
+.escena:not(.nitida) .escena-velo {
+  animation: desencaje 5.5s ease-in-out infinite;
+}
+
+@keyframes desencaje {
+  0%, 100% { transform: translate(0, 0) scale(1);      opacity: 0.95; }
+  25%      { transform: translate(-11px, 4px) scale(1.012); opacity: 0.8; }
+  50%      { transform: translate(6px, -6px) scale(0.994);  opacity: 1; }
+  75%      { transform: translate(-4px, -9px) scale(1.008); opacity: 0.86; }
+}
+
+/* al estabilizarse, la escena se asienta */
+.escena.nitida .escena-marco { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .escena:not(.nitida) .escena-marco,
+  .escena:not(.nitida) .escena-velo { animation: none; }
+}
+
+/* ── Mala sintonía: desajuste de color y barrido ──────────────
+   Una tercera copia, desplazada y virada a cian, superpuesta en
+   modo pantalla: es el fantasma cromático de una señal que no
+   engancha. Más las líneas de barrido cruzando la imagen. */
+
+.escena-desfase {
+  filter: blur(2px) saturate(2.6) hue-rotate(165deg) brightness(1.3);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 800ms ease;
+}
+
+.escena:not(.nitida) .escena-desfase {
+  opacity: 0.55;
+  animation: cromatico 3.1s steps(1, end) infinite;
+}
+
+@keyframes cromatico {
+  0%   { transform: translate(-9px, 2px)  scaleY(1);     opacity: 0.55; }
+  17%  { transform: translate(11px, -3px) scaleY(1.006); opacity: 0.32; }
+  33%  { transform: translate(-5px, 5px)  scaleY(0.996); opacity: 0.62; }
+  50%  { transform: translate(14px, 1px)  scaleY(1.004); opacity: 0.20; }
+  67%  { transform: translate(-13px, -4px) scaleY(1);    opacity: 0.58; }
+  83%  { transform: translate(6px, 6px)   scaleY(0.994); opacity: 0.40; }
+  100% { transform: translate(-9px, 2px)  scaleY(1);     opacity: 0.55; }
+}
+
+/* barrido horizontal, como una señal analógica que no engancha */
+.escena-lineas {
+  position: absolute;
+  inset: 0;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 800ms ease;
+  background:
+    repeating-linear-gradient(to bottom,
+      rgba(111, 227, 255, 0.038) 0px,
+      rgba(111, 227, 255, 0.038) 1px,
+      transparent 1px,
+      transparent 4px),
+    linear-gradient(to bottom,
+      transparent 0%,
+      rgba(160, 240, 255, 0.11) 46%,
+      rgba(160, 240, 255, 0.05) 52%,
+      transparent 60%);
+  background-size: 100% 100%, 100% 42%;
+  background-repeat: no-repeat, no-repeat;
+  mix-blend-mode: screen;
+}
+
+.escena:not(.nitida) .escena-lineas {
+  opacity: 1;
+  animation: barrido 4.4s linear infinite;
+}
+
+@keyframes barrido {
+  0%   { background-position: 0 0, 0 -60%; }
+  100% { background-position: 0 0, 0 130%; }
+}
+
+/* la imagen nítida por debajo, apagada mientras no sintoniza */
+.escena:not(.nitida) .escena-base { opacity: 0.55; transition: opacity 800ms ease; }
+.escena.nitida .escena-base { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .escena:not(.nitida) .escena-desfase,
+  .escena:not(.nitida) .escena-lineas { animation: none; }
+}
+
+/* ============================================================
+   EL RASTRO — huella de los universos ya abiertos
+   ============================================================ */
+
+/* la estrella visitada conserva brillo propio, sin cursor encima */
+.nodo.visitado .punto {
+  background: #fff;
+  box-shadow: 0 0 14px 3px rgba(111, 227, 255, 0.55),
+              0 0 3px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* y un anillo permanente, más tenue que el del cursor */
+.nodo.visitado .halo {
+  opacity: 0.45;
+  transform: scale(0.82);
+  border-color: rgba(111, 227, 255, 0.45);
+}
+
+.nodo.visitado:hover .halo,
+.nodo.visitado.activo .halo { opacity: 1; transform: scale(1); }
+
+.nodo.visitado .cifra { opacity: 0.4; }
+.nodo.visitado:hover .cifra { opacity: 1; }
+
+/* el instante de recibirla: un destello que se expande y se va */
+.nodo.recien::before {
+  content: "";
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--universo);
+  animation: impronta 1.4s cubic-bezier(.2,.8,.2,1) forwards;
+  pointer-events: none;
+}
+
+@keyframes impronta {
+  0%   { transform: scale(0.5); opacity: 1; }
+  100% { transform: scale(3.4); opacity: 0; }
+}
+
+/* con las once recibidas, la red entera queda encendida */
+.constelacion.completa .enlace { stroke: rgba(111, 227, 255, 0.42); }
+
+.constelacion.completa .nodo .punto {
+  box-shadow: 0 0 18px 4px rgba(111, 227, 255, 0.7),
+              0 0 4px 1px rgba(255, 255, 255, 0.9);
+}
+
+.reposo { transition: opacity 420ms, color 420ms; }
+.constelacion.completa ~ .reposo { color: var(--senal); }
+
+/* ── La pregunta de Lyra Rift, ya sin adornos ─────────────── */
+.cierre-titulo {
+  margin: 0 0 0.9rem;
+  font-size: clamp(1.5rem, 4.4vw, 2.5rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+}
+
+/* al resolverla, el texto es corto y la constelación queda a la vista */
+#revelado { text-align: center; }
+#revelado h2 { margin-top: 0; }
+#revelado p { max-width: 46ch; margin-left: auto; margin-right: auto; }
+#revelado .destacado { border-left: 0; padding-left: 0; text-align: center; }
+
+/* la sección se estrecha por arriba para que no haya un salto largo */
+#lyra { padding-bottom: clamp(1.5rem, 4vh, 2.5rem); }
+.archivo { padding-top: clamp(1.5rem, 4vh, 3rem); }
+
+/* ============================================================
+   EL UMBRAL — la pregunta de Lyra Rift, sin caja
+   ------------------------------------------------------------
+   El alta es un formulario: merece su tarjeta. La pregunta no
+   es un formulario, es un umbral. Dos cajas idénticas seguidas
+   convertían las dos cosas en lo mismo.
+   ============================================================ */
+
+#lyra {
+  min-height: 78svh;
+  display: grid;
+  place-items: center;
+  max-width: none;
+  padding-top: clamp(2rem, 6vh, 4rem);
+}
+
+.cierre.desnudo {
+  position: relative;
+  border: 0;
+  background: none;
+  backdrop-filter: none;
+  padding: 0;
+  max-width: 560px;
+}
+
+/* el símbolo de «energía y trascendencia» del libro, enorme y casi invisible */
+.sigilo {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: clamp(260px, 34vw, 460px);
+  transform: translate(-50%, -50%);
+  filter: invert(1);
+  opacity: 0.055;
+  pointer-events: none;
+  animation: girar-sigilo 64s linear infinite;
+}
+
+@keyframes girar-sigilo {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.cierre.desnudo .cierre-titulo {
+  position: relative;
+  font-size: clamp(1.9rem, 6vw, 3.4rem);
+  font-weight: 200;
+  letter-spacing: -0.01em;
+  margin-bottom: 1.1rem;
+}
+
+.cierre.desnudo > p {
+  position: relative;
+  font-size: 0.86rem;
+  letter-spacing: 0.02em;
+  color: rgba(238, 241, 255, 0.45);
+  margin-bottom: 2.6rem;
+}
+
+/* el campo deja de ser una caja: es una línea sobre la que se escribe */
+.cierre.desnudo .llave {
+  position: relative;
+  gap: 0;
+  align-items: flex-end;
+  max-width: 340px;
+  margin: 0 auto;
+}
+
+.cierre.desnudo .llave input {
+  flex: 1 1 auto;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(111, 227, 255, 0.35);
+  border-radius: 0;
+  padding: 0.7rem 0.2rem;
+  font-size: 1.5rem;
+  letter-spacing: 0.5em;
+  text-indent: 0.5em;
+  transition: border-color 380ms, box-shadow 380ms;
+}
+
+.cierre.desnudo .llave input:focus {
+  border-bottom-color: var(--senal);
+  box-shadow: 0 6px 20px -14px var(--senal);
+}
+
+.cierre.desnudo .llave input::placeholder {
+  letter-spacing: 0.2em;
+  font-size: 0.9rem;
+  color: rgba(238, 241, 255, 0.25);
+}
+
+.cierre.desnudo .llave button {
+  background: none;
+  color: var(--senal);
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  padding: 0.9rem 0 0.75rem 1.1rem;
+  transition: color 300ms, border-color 300ms, transform 300ms;
+}
+
+.cierre.desnudo .llave button:hover {
+  transform: none;
+  filter: none;
+  color: #fff;
+  border-bottom-color: var(--senal);
+}
+
+/* una hebra de luz baja desde el alta hasta la pregunta */
+#lyra::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: clamp(2rem, 7vh, 5rem);
+  background: linear-gradient(to bottom, transparent, rgba(111, 227, 255, 0.4));
+  transform: translateX(-50%);
+}
+
+#lyra { position: relative; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sigilo { animation: none; }
+}
+
+/* ── La portada deja de ocupar la pantalla entera ─────────────
+   El alta estaba una pantalla más abajo y había que buscarla.
+   Ahora el título, el lema y el formulario entran juntos. */
+
+.portada {
+  min-height: auto;
+  padding: clamp(6.5rem, 13vh, 9rem) 1.5rem 0;
+}
+
+.portada .pie { margin-top: clamp(1.4rem, 3vh, 2.2rem); }
+.portada .flecha { display: none; }          /* ya no hay que bajar a ciegas */
+
+.senal-alta { padding-top: clamp(1.4rem, 3.5vh, 2.4rem); }
+
+@media (max-width: 760px) {
+  .portada { padding-top: clamp(5.5rem, 16vh, 7rem); }
+}
+
+/* ── Las cuentas del autor, con el icono de su red ────────── */
+.ficha-redes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.red {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  color: var(--humo);
+  transition: color 280ms;
+}
+
+.red:hover { color: var(--universo); }
+
+.red img {
+  width: 15px;
+  height: 15px;
+  filter: invert(1);          /* vienen del libro en negro */
+  opacity: 0.65;
+  transition: opacity 280ms;
+}
+
+.red:hover img { opacity: 1; }

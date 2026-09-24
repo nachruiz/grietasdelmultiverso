@@ -8,7 +8,7 @@
 <meta property="og:title" content="Grietas del Multiverso">
 <meta property="og:description" content="Cada decisión crea un mundo. Aquí se rompen todos.">
 <meta property="og:type" content="book">
-<link rel="stylesheet" href="assets/estilos.css?v=3">
+<link rel="stylesheet" href="assets/estilos.css?v=27">
 </head>
 <body>
 
@@ -19,8 +19,8 @@
   <a class="marca" href="index.html">Grietas del Multiverso</a>
   <nav class="menu">
     <a href="#senal">La señal</a>
-    <a href="#archivo">El archivo</a>
     <a href="#lyra">Lyra Rift</a>
+    <a href="#archivo">El archivo</a>
     <a href="#libro">El libro</a>
     <a href="ia/">IA</a>
   </nav>
@@ -67,6 +67,33 @@
     </div>
   </section>
 
+  <!-- ── Lyra Rift: la pregunta, y su respuesta ──────────── -->
+  <section class="seccion" id="lyra">
+
+    <div class="cierre desnudo" id="cierre">
+      <img class="sigilo" src="img/iconos/cierre-energia.png" alt="" aria-hidden="true">
+      <h2 class="cierre-titulo">¿Quién es Lyra Rift?</h2>
+      <p>Responde con un año: el que se repite a sí mismo.</p>
+      <div class="llave">
+        <input id="clave" type="text" inputmode="numeric" autocomplete="off" spellcheck="false"
+               placeholder="año" aria-label="Año que abre el archivo">
+        <button id="abrir" type="button">Sintonizar</button>
+      </div>
+      <p class="error" id="error-clave" hidden></p>
+    </div>
+
+    <div id="revelado" hidden>
+      <h2>Quién es Lyra Rift</h2>
+      <p><!-- ▼▼ TEXTO PROVISIONAL: escrito por Claude, sustitúyelo ▼▼ -->
+         No es una persona. Es lo que persiste cuando once voces
+         distintas, sin haberse puesto de acuerdo, empiezan a contar
+         el mismo universo.</p>
+      <p class="destacado">Lyra Rift no escribe. Recibe.<br>
+         Lo que sigue es lo que decidió que merecía ser leído.
+         <!-- ▲▲ FIN DEL TEXTO PROVISIONAL ▲▲ --></p>
+    </div>
+  </section>
+
   <!-- ── Constelación ────────────────────────────────────── -->
   <section class="archivo" id="archivo">
     <div class="rotulo">
@@ -88,59 +115,6 @@
     </div>
 
     <p class="reposo">Pasa el cursor sobre una señal</p>
-  </section>
-
-  <!-- ── Lyra Rift: parte pública ────────────────────────── -->
-  <section class="seccion" id="lyra">
-    <h2>Quién es Lyra Rift</h2>
-    <p>Se define como una frecuencia de coherencia narrativa: la señal que persiste
-       cuando once voces distintas, como estrellas de una misma constelación, hablan
-       del mismo universo.</p>
-    <p>No tiene fecha de nacimiento ni lugar de residencia. Tiene, en cambio,
-       una obsesión: documentar las grietas.</p>
-    <p class="destacado">Lyra Rift no escribe. Recibe.<br>
-       Lo que tienes en las manos es lo que decidió que merecía ser leído.</p>
-    <p>Eso es lo que dice la contracubierta. No es toda la verdad.</p>
-  </section>
-
-  <!-- ── Lyra Rift: parte cerrada ────────────────────────── -->
-  <section class="seccion" id="verdad">
-
-    <div class="cierre" id="cierre">
-      <div class="candado" aria-hidden="true">✦</div>
-      <h3>Quién es <em>realmente</em> Lyra Rift</h3>
-      <p>Este tramo del archivo está cerrado. Se abre con un año:
-         el que se repite a sí mismo cuatro veces.</p>
-      <div class="llave">
-        <input id="clave" type="text" inputmode="numeric" autocomplete="off" spellcheck="false"
-               placeholder="año" aria-label="Año que abre el archivo">
-        <button id="abrir" type="button">Sintonizar</button>
-      </div>
-      <p class="error" id="error-clave" hidden></p>
-    </div>
-
-    <div id="revelado" hidden>
-      <h2>Quién es realmente Lyra Rift</h2>
-
-      <p><!-- ▼▼ TEXTO PROVISIONAL: escrito por Claude, sustitúyelo ▼▼ -->
-         Lyra Rift no es una persona. Tampoco es del todo una invención.</p>
-      <p>Cuando once autores escriben por separado sobre universos que se rompen,
-         ocurre algo que ninguno planeó: empiezan a coincidir. Una imagen que
-         aparece en dos relatos sin que sus autores se conocieran. Un gesto
-         repetido. Un mismo silencio antes del final.</p>
-      <p class="destacado">Lyra Rift es el nombre que le pusimos a esa coincidencia
-         cuando dejó de parecer casualidad.</p>
-      <p>No firmó los relatos. Los reconoció. Fue leyendo lo que llegaba y separando
-         lo que pertenecía a la misma señal de lo que no. Por eso son once y no doce,
-         aunque llegaran más.</p>
-      <p>El archivo que tienes delante es su criterio. Y ahora que has entrado,
-         puedes ver a quienes había detrás de cada señal.
-         <!-- ▲▲ FIN DEL TEXTO PROVISIONAL ▲▲ --></p>
-
-      <p class="destacado">Vuelve a la constelación. Pasa el cursor sobre cualquier
-         punto y haz clic para fijar a quien lo escribió.</p>
-      <p><a href="#archivo" style="color:var(--senal)">↑ Subir al archivo</a></p>
-    </div>
   </section>
 
   <!-- ── El libro, tras la frecuencia ────────────────────── -->
@@ -204,14 +178,16 @@
   </span>
 </footer>
 
-<script src="assets/reiniciar.js?v=1"></script>
+<script src="assets/reiniciar.js?v=2"></script>
 <script src="assets/datos.js?v=7"></script>
-<script src="assets/multiverso.js?v=7"></script>
+<script src="assets/multiverso.js?v=8"></script>
 <script src="assets/iconos.js?v=3"></script>
 <script src="assets/newsletter.js?v=11"></script>
 <script src="assets/descifrar.js?v=1"></script>
-<script src="assets/revelacion.js?v=7"></script>
+<script src="assets/revelacion.js?v=8"></script>
 <script src="assets/libro.js?v=7"></script>
+<script src="assets/rastro.js?v=1"></script>
+<script src="assets/relatos.js?v=10"></script>
 <script src="assets/sonido.js?v=9"></script>
 </body>
 </html>

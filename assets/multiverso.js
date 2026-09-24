@@ -131,6 +131,7 @@
     b.type = "button";
     b.style.left = u.x * 100 + "%";
     b.style.top = u.y * 100 + "%";
+    b.dataset.id = u.id;
     b.setAttribute("aria-label", `Universo ${u.id}: ${u.titulo}`);
     b.innerHTML = `<span class="halo"></span><span class="punto"></span>` +
                   `<span class="cifra">${String(u.id).padStart(2, "0")}</span>`;

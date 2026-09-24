@@ -114,7 +114,21 @@
     ficha.querySelector(".ficha-autor").textContent = u.autor;
     ficha.querySelector(".ficha-meta").textContent = `${u.ciudad || u.pais} · ${u.titulo}`;
     ficha.querySelector(".ficha-bio").textContent = u.bio;
-    ficha.querySelector(".ficha-redes").textContent = u.redes || "";
+    // las cuentas, con el icono de su red, sacados del propio libro
+    const redes = ficha.querySelector(".ficha-redes");
+    redes.innerHTML = "";
+    (Array.isArray(u.redes) ? u.redes : []).forEach(r => {
+      const a = document.createElement("a");
+      a.className = "red";
+      a.href = r.url;
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.title = `${r.cuenta} en ${r.red === "tiktok" ? "TikTok" : "Instagram"}`;
+      a.innerHTML =
+        `<img src="img/iconos/red-${r.red}.png" alt="" aria-hidden="true">` +
+        `<span>${r.cuenta}</span>`;
+      redes.appendChild(a);
+    });
   }
 
   document.addEventListener("universo:activo", e => {
